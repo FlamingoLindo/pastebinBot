@@ -1,16 +1,25 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
-const { pasteBin, response } = require('./functions');
+const { pasteBinCommand, Atpastebinguy  } = require('./PastebinCommand');
+
 
 const client = new tmi.Client({
-    options: { debug: true },
+    options: { debug: false },
     identity: {
-        username: process.env.TWITCH_USERNAME,
-        password: process.env.TWITCH_PASSWORD,
+        username: "",
+        password: "",
     },
     channels: ['arroz_fodao'],
 });
 
-client.connect().catch(console.error);
+client.connect()
+    .then(() => {
+        console.log('Connected to Twitch.');
+        pasteBinCommand(client);
+        Atpastebinguy(client);
+    })
+    .catch((error) => {
+        console.error('Error connecting to Twitch:', error);
+    });
 
-pasteBin(client);
+
