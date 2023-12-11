@@ -1,5 +1,5 @@
 DISPLAY_NAME=PastebinguyBot
 DESCRIPTION=Toomfolery Bot
-MAIN=app.js
+MAIN=main.js
 MEMORY=128
 VERSION=recommended
