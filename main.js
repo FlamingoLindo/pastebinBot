@@ -4,16 +4,20 @@ const { pasteBinCommand } = require('./Functions/PastebinCommand');
 const { atPastebinguy } = require('./Functions/Atpastebinguy');
 const { cockaSizeCommand } = require('./Functions/CockaSizeCommand');
 const { bruhCommand } = require('./Functions/BruhCommand');
-const { reminderAfterFish } = require('./Functions/ReminderAfterFish')
-const { help } = require('./Functions/Commandsbp')
+const { reminderAfterFish } = require('./Functions/ReminderAfterFish');
+const { help } = require('./Functions/Commandsbp');
+const { you } = require('./Functions/YOU');
+const { unsetRemind } = require('./Functions/UnsetRemind');
+const { randomping } = require('./Functions/Randomping');
+const { tomfoolery } = require('./Functions/Tomfoolery')
 
 const client = new tmi.Client({
-    options: { debug: true },
+    options: { debug: false },
     identity: {
         username: process.env.TWITCH_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN,
     },
-    channels: ['velcuz', 'flamingo_lindo', 'parladdd'],
+    channels: [ 'arroz_fodao','flamingo_lindo','parladdd','velcuz' ],
 });
 
 client.connect()
@@ -25,6 +29,10 @@ client.connect()
         bruhCommand(client);
         reminderAfterFish(client);
         help(client);
+        you(client);
+        unsetRemind(client);
+        randomping(client);
+        tomfoolery(client);
     })
     .catch((error) => {
         console.error('Error connecting to Twitch:', error);
