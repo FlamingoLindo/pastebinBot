@@ -9,7 +9,7 @@ function reminderAfterFish(client, channel) {
             return;
         }
 
-        const isSupiBot = tags.username.toLowerCase() === 'supibot';
+        const isSupiBot = tags.username.toLowerCase() === 'flamingo_lindo';
 
             const caughtMatch = message.match(/(\w+) hooked something/);
         if (isSupiBot && caughtMatch) {
@@ -64,47 +64,40 @@ function reminderAfterFish(client, channel) {
             const caughtUsername = caughtMatch11[1];
             client.say(channel, `$remind @${caughtUsername} in 30 m You can fish again FeelsOkayMan`);
         }
+
+        const caughtMatch12 = message.match(/(\w+), ya caught a/);
+        if (isSupiBot && caughtMatch12) {
+            const caughtUsername = caughtMatch12[1];
+            client.say(channel, `$remind @${caughtUsername} in 30 m You can fish again FeelsOkayMan`);
+        }
+
+        const caughtMatch13 = message.match(/(\w+) triumphantly hooks a/);
+        if (isSupiBot && caughtMatch13) {
+            const caughtUsername = caughtMatch13[1];
+            client.say(channel, `$remind @${caughtUsername} in 30 m You can fish again FeelsOkayMan`);
+        }
+
+        const caughtMatch14 = message.match(/(\w+) hooked a whopper/);
+        if (isSupiBot && caughtMatch14) {
+            const caughtUsername = caughtMatch14[1];
+            client.say(channel, `$remind @${caughtUsername} in 30 m You can fish again FeelsOkayMan`);
+        }
+
+        const caughtMatch15 = message.match(/User "(\w+)" caught a/);
+        if (isSupiBot && caughtMatch15) {
+            const caughtUsername = caughtMatch15[1];
+            client.say(channel, `$remind @${caughtUsername} in 30 m You can fish again FeelsOkayMan`);
+        }
+
+        const caughtMatch16 = message.match(/User (\w+) caught a/);
+        if (isSupiBot && caughtMatch16) {
+            const caughtUsername = caughtMatch16[1];
+            client.say(channel, `$remind @${caughtUsername} in 30 m You can fish again FeelsOkayMan`);
+        }
         }
     );
     
-    //TRAP
-    client.on('message', (channel, tags, message, self) => {
-        if (self) return;
-    
-            const blacklistedUser = '@you';
-    
-            if (tags.username.toLowerCase() === blacklistedUser.toLowerCase()) {
-                console.log(`User ${blacklistedUser} is blacklisted. Skipping reminder.`);
-                return;
-            }
-    
-        const senderUsername = tags.username;
-        const trap = "$fish trap remind";
-        const caughtMatch12 = message.includes(trap);
-    
-        if (!self && caughtMatch12) {
-            client.say(channel, `$remind @${senderUsername}, in 60m Time to reel in your trap`);
-        }
-    });
-    
-    client.on('message', (channel, tags, message, self) => {
-        if (self) return;
-    
-            const blacklistedUser = '@you';
-    
-            if (tags.username.toLowerCase() === blacklistedUser.toLowerCase()) {
-                console.log(`User ${blacklistedUser} is blacklisted. Skipping reminder.`);
-                return;
-            }
-            
-        const senderUsername = tags.username;
-        const trapReset = "$fish trap reset remind";
-        const caughtMatch13 = message.includes(trapReset);
-    
-        if (!self && caughtMatch13) {
-            client.say(channel, `$remind @${senderUsername}, in 60m Time to reel in your trap`);
-        }
-    });
+   
 }
 
 module.exports = {

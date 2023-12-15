@@ -1,9 +1,11 @@
 function unsetRemind(client, channel) {
     client.on('message', (channel, tags, message, self) => {
         if (self) return;
-        if (message.toLowerCase() === 'pb -remind') {
+        const match = message.match(/^pb -remind (\w+)/i);
         
-        client.say(channel,"$unset reminder last");
+        if (match) {
+            const id = match[1];
+            client.say(channel, `$unset reminder ${id}`);
         }
     });
 }

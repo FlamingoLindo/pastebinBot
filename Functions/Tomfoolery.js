@@ -19,9 +19,12 @@ function processAndDisplay(data) {
         matches.push(match[1]);
     }
 
-    if (matches.length > 0) {
-        const shuffledNames = shuffleArray(matches);
-        const selectedNames = shuffledNames.slice(0, 30); 
+    const excludedUsers = ["streamelements", "botbear1110", "fossabot"];
+    const filteredMatches = matches.filter(match => !excludedUsers.includes(match));
+
+    if (filteredMatches.length > 0) {
+        const shuffledNames = shuffleArrayWithoutRepeats(filteredMatches);
+        const selectedNames = shuffledNames.slice(0, 20); 
         const output = selectedNames.join(" ");
         console.log(output);
         return output;
@@ -36,12 +39,14 @@ function getRandomElement(array) {
     return array[randomIndex];
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+function shuffleArrayWithoutRepeats(array) {
+    const uniqueValues = new Set(array);
+    const uniqueArray = Array.from(uniqueValues);
+    for (let i = uniqueArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [uniqueArray[i], uniqueArray[j]] = [uniqueArray[j], uniqueArray[i]];
     }
-    return array;
+    return uniqueArray;
 }
 
 async function tomfoolery(client, channel) {

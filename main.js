@@ -10,9 +10,10 @@ const { you } = require('./Functions/YOU');
 const { unsetRemind } = require('./Functions/UnsetRemind');
 const { randomping } = require('./Functions/Randomping');
 const { tomfoolery } = require('./Functions/Tomfoolery')
+const { reminderFishTrap } = require('./Functions/FishTrapRemind');
 
 const client = new tmi.Client({
-    options: { debug: false },
+    options: { debug: true },
     identity: {
         username: process.env.TWITCH_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN,
@@ -33,6 +34,7 @@ client.connect()
         unsetRemind(client);
         randomping(client);
         tomfoolery(client);
+        reminderFishTrap(client);
     })
     .catch((error) => {
         console.error('Error connecting to Twitch:', error);
