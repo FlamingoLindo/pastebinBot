@@ -9,7 +9,7 @@ function reminderAfterFish(client, channel) {
             return;
         }
 
-        const isSupiBot = tags.username.toLowerCase() === 'flamingo_lindo';
+        const isSupiBot = tags.username.toLowerCase() === 'supibot';
 
             const caughtMatch = message.match(/(\w+) hooked something/);
         if (isSupiBot && caughtMatch) {

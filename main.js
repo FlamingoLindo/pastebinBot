@@ -11,6 +11,13 @@ const { unsetRemind } = require('./Functions/UnsetRemind');
 const { randomping } = require('./Functions/Randomping');
 const { tomfoolery } = require('./Functions/Tomfoolery')
 const { reminderFishTrap } = require('./Functions/FishTrapRemind');
+const { saveUsernameToDB } = require('./DataBase/userDataBase');
+const { lastMessage } = require('./DataBase/lastMessage');
+const { firstMessage } = require('./DataBase/firstMessage');
+const { lastSeen } = require('./DataBase/lastSeen');
+const { firstSeen } = require('./DataBase/firstSeen');
+const { lastChannel } = require('./DataBase/lastChannel');
+const { firstChannel } = require('./DataBase/firstChannel');
 
 const client = new tmi.Client({
     options: { debug: true },
@@ -18,8 +25,11 @@ const client = new tmi.Client({
         username: process.env.TWITCH_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN,
     },
-    channels: [ 'arroz_fodao','flamingo_lindo','parladdd','velcuz' ],
+    channels: [ 'arroz_fodao','flamingo_lindo','parladdd','qandoru','velcuz'],
 });
+
+client.setMaxListeners(15); 
+
 
 client.connect()
     .then(() => {
@@ -35,7 +45,28 @@ client.connect()
         randomping(client);
         tomfoolery(client);
         reminderFishTrap(client);
+
     })
     .catch((error) => {
-        console.error('Error connecting to Twitch:', error);
+        console.error('Error connecting to Twitch:', error.message);
     });
+
+
+    client.on('message', async (channel, userstate, message, self) => {
+        if (self) return;
+      
+        try {
+          const currentTime = new Date(); 
+          await firstMessage(userstate['display-name'], message);
+          await lastMessage(userstate['display-name'], message);
+          await lastSeen(userstate['display-name'], currentTime);
+          await firstSeen(userstate['display-name'], currentTime);
+          const username = userstate['display-name'];
+          lastChannel(username, channel, message);
+          firstChannel(username, channel, message);
+
+        } catch (error) {
+          console.error('Error handling message:', error.message);
+        }
+      });
+

@@ -35,19 +35,24 @@ function getRandomElement(array) {
 }
 
 async function randomping(client, channel) {
-  client.on('message', async (channel, tags, message, self) => {
-      if (self) return;
+    client.on('message', async (channel, tags, message, self) => {
+        if (self) return;
 
-      if (['pb rp', 'pb randomping'].includes(message)) {
-          try {
-              const result = await fetchData();
+        if (message.trim() === 'pb rp' || message.trim() === 'pb randomping') {
+            try {
+                const result = await fetchData();
 
-              client.say(channel, result);
-          } catch (error) {
-              console.error("Error in Tomfoolery command:", error.message);
-          }
-      }
-  });
+                // Add the insult if the condition is met
+                if (tags.username === "skryoo" || tags.username === "botbear1110" || tags.username === "streamelements" || tags.username === "supibot") {
+                    client.say(channel, `fuck you @${tags.username} FeelsWeirdMan`);
+                } else {
+                    client.say(channel, result);
+                }
+            } catch (error) {
+                console.error("Error in Tomfoolery command:", error.message);
+            }
+        }
+    });
 }
 
 

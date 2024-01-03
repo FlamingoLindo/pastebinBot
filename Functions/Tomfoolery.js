@@ -19,12 +19,12 @@ function processAndDisplay(data) {
         matches.push(match[1]);
     }
 
-    const excludedUsers = ["streamelements", "botbear1110", "fossabot"];
+    const excludedUsers = ["streamelements", "botbear1110", "fossabot", "namtheweebs", "pastebinguy", "supibot", "potatbotat ", "kryha5555", "aapoapustaja"];
     const filteredMatches = matches.filter(match => !excludedUsers.includes(match));
 
     if (filteredMatches.length > 0) {
         const shuffledNames = shuffleArrayWithoutRepeats(filteredMatches);
-        const selectedNames = shuffledNames.slice(0, 20); 
+        const selectedNames = shuffledNames.slice(0, 15);
         const output = selectedNames.join(" ");
         console.log(output);
         return output;
@@ -49,22 +49,37 @@ function shuffleArrayWithoutRepeats(array) {
     return uniqueArray;
 }
 
+let lastTomfooleryTime = 0; 
+
 async function tomfoolery(client, channel) {
     client.on('message', async (channel, tags, message, self) => {
         if (self) return;
 
-        if (['pb Tomfoolery'].includes(message)) {
-            try {
-                const result = await fetchData();
+        if (message.trim() === 'pb Tomfoolery') {
+            const currentTime = Date.now();
+            const cooldownTime = 60 * 1000; 
 
-                client.say(channel, result);
-            } catch (error) {
-                console.error("Error in Tomfoolery command:", error.message);
+            if (currentTime - lastTomfooleryTime >= cooldownTime) {
+                try {
+                    const result = await fetchData();
+
+                    if (tags.username === "skryoo" || tags.username === "botbear1110" || tags.username === "streamelements" || tags.username === "supibot" || tags.username === "5pic3") {
+                        client.say(channel, `fuck you @${tags.username} FeelsWeirdMan`);
+                    } else {
+                        client.say(channel, result);
+                    }
+
+                    lastTomfooleryTime = currentTime;
+                } catch (error) {
+                    console.error("Error in Tomfoolery command:", error.message);
+                }
+            } else {
+                client.say(channel, `@${tags.username} Tomfoolery`);
             }
         }
     });
 }
 
 module.exports = {
-  tomfoolery,
+    tomfoolery,
 };
