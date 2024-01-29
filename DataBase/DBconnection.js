@@ -8,6 +8,7 @@ const client = new Client({
   password: process.env.Password,
   database: process.env.Database,
   ssl: { rejectUnauthorized: false },
+  keepAlive: true,
 });
 
 client.connect()
